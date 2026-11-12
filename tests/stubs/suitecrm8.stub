@@ -1,0 +1,47 @@
+<?php
+
+// Signatures of the SuiteCRM 8 classes the extension uses, for PHPStan only
+// (SuiteCRM is not installed here). From SuiteCRM 8.10.2, core/backend.
+
+namespace App\FieldDefinitions\Entity;
+
+class FieldDefinition
+{
+    /** @return array<mixed>|null */
+    public function getVardef(): ?array
+    {
+    }
+}
+
+namespace App\ViewDefinitions\Entity;
+
+class ViewDefinition
+{
+    public function getId(): string
+    {
+    }
+
+    /** @return array<mixed>|null */
+    public function getRecordView(): ?array
+    {
+    }
+
+    /** @param array<mixed> $recordView */
+    public function setRecordView(array $recordView): void
+    {
+    }
+}
+
+namespace App\ViewDefinitions\LegacyHandler;
+
+use App\FieldDefinitions\Entity\FieldDefinition;
+use App\ViewDefinitions\Entity\ViewDefinition;
+
+interface ViewDefinitionMapperInterface
+{
+    public function getKey(): string;
+
+    public function getModule(): string;
+
+    public function map(ViewDefinition $definition, FieldDefinition $fieldDefinition): void;
+}

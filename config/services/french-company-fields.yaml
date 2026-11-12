@@ -1,0 +1,6 @@
+# Services of the extension, loaded by SuiteCRM 8 (config/services.yaml:
+# extensions/*/config/services/*.yaml). Tagged by hand: the _instanceof of
+# SuiteCRM's own files applies to their services only.
+services:
+  App\Extension\FrenchCompanyFields\backend\ViewDefinitions\FrenchCompanyPanel:
+    tags: [ 'view.definition.mapper' ]
