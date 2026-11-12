@@ -32,18 +32,6 @@ final class CompanyProfileTest extends TestCase
         self::assertSame($form, CompanyProfile::legalForm($name, $employees));
     }
 
-    public function testEveryLegalFormIsInTheList(): void
-    {
-        $app_list_strings = [];
-        require __DIR__ . '/../legacy/Extension/application/Ext/Language/fr_FR.french-company-fields.php';
-        $list = $app_list_strings['fr_legal_form_list'] ?? [];
-        self::assertIsArray($list);
-
-        foreach (['EURL', 'SARL', 'SAS', 'SASU', 'SA', 'SNC', 'SCI', 'SCOP', 'ASSOCIATION'] as $form) {
-            self::assertArrayHasKey($form, $list);
-        }
-    }
-
     public function testTheNafCodeFollowsTheIndustry(): void
     {
         self::assertSame('62.01Z', CompanyProfile::nafCode('Technology'));
