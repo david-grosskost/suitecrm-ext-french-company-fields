@@ -6,10 +6,10 @@ includes:
 
 parameters:
     paths:
-        - backend
+        - database
         - legacy
         - tests
     tmpDir: .tools/phpstan
     scanFiles:
         - vendor/david-grosskost/suitecrm-devkit/config/suitecrm.stub
-        - tests/stubs/suitecrm8.stub
+        - tests/stubs/suitecrm.stub

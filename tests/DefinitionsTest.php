@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace SuiteCrmExt\FrenchCompanyFields\Tests;
 
-use App\Extension\FrenchCompanyFields\backend\ViewDefinitions\PanelBuilder;
+use SuiteCrmExt\FrenchCompanyFields\CompanyProfile;
+use SuiteCrmExt\FrenchCompanyFields\StudioPanel;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
@@ -85,7 +86,7 @@ final class DefinitionsTest extends TestCase
             self::assertNotEmpty($labels[$vname] ?? null, "$name : libellé $vname manquant en $language");
         }
         self::assertNotEmpty(
-            $labels[strtoupper(PanelBuilder::KEY)] ?? null,
+            $labels[StudioPanel::KEY] ?? null,
             "titre du panneau manquant en $language",
         );
     }
@@ -106,6 +107,17 @@ final class DefinitionsTest extends TestCase
         self::assertArrayHasKey('', $lists['fr_legal_form_list'], 'une valeur vide : forme juridique pas encore connue');
         foreach (array_keys($lists['fr_legal_form_list']) as $key) {
             self::assertLessThanOrEqual(20, strlen((string) $key), "clé $key : la colonne fait 20 caractères");
+        }
+    }
+
+    public function testTheDemoDataUsesOnlyListedLegalForms(): void
+    {
+        $lists = self::load('application/Ext/Language/fr_FR.' . self::SLUG . '.php', 'app_list_strings');
+        self::assertIsArray($lists['fr_legal_form_list'] ?? null);
+
+        foreach (['Duval EURL', 'Martin SARL', 'Leroy SAS', 'Petit SASU', 'Roux SA', 'Blanc SNC', 'Noir SCI', 'Vert SCOP', 'Association Plein Air', 'Sans Forme'] as $name) {
+            $form = CompanyProfile::legalForm($name, 10);
+            self::assertArrayHasKey($form, $lists['fr_legal_form_list'], "$name : $form absent de la liste");
         }
     }
 }
