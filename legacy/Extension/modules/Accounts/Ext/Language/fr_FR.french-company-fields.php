@@ -6,5 +6,5 @@
 $mod_strings['LBL_FR_SIRET'] = 'SIRET';
 $mod_strings['LBL_FR_NAF_CODE'] = 'Code NAF';
 $mod_strings['LBL_FR_LEGAL_FORM'] = 'Forme juridique';
-// Title of the panel of the record view (backend/ViewDefinitions/PanelBuilder).
+// Title of the panel of the record view (put in the Studio layout by database/install.php).
 $mod_strings['LBL_FR_COMPANY_PANEL'] = 'Entreprise française';

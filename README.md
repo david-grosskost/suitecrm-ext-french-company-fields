@@ -19,12 +19,18 @@ l'extension `siret-validation`, qui dépend de celle-ci.
   (`_c`), créées par la réparation rapide qui suit l'activation. Un index sur le SIRET.
 - **La liste des formes juridiques** (`legacy/Extension/application/Ext/Language/`) : les clés
   sont enregistrées en base, ne jamais en renommer une, en ajouter une autre.
-- **Le panneau de la fiche** (`backend/ViewDefinitions/`) : ajouté quand SuiteCRM 8 construit la
-  vue, pas écrit dans ses fichiers de mise en page. La mise en page faite dans le Studio reste
-  intacte, et le panneau disparaît avec l'extension.
+- **Le panneau de la fiche** (`database/install.php`) : écrit **une fois** dans la mise en
+  page de la fiche des comptes, avec Studio, à la première activation. Il appartient ensuite au
+  Studio : le déplacer, le renommer, le vider ou le supprimer, il n'est jamais remis. Si un des
+  trois champs est déjà dans la mise en page, rien n'est ajouté.
+- **Les données de démo** (`database/seeders/`) : `make db@seed` remplit les champs vides des
+  comptes de démo (`core/accounts` et `core/volume`) : SIRET fictif mais avec une clé de Luhn
+  valide, code NAF selon le secteur, forme juridique lue dans le nom (« Duval Paysages EURL »),
+  sinon SAS dès 50 salariés, SARL en dessous. Une valeur déjà saisie n'est jamais remplacée.
 
-Désactiver l'extension retire les champs et le panneau de l'interface ; les colonnes et leurs
-données restent dans la base (la réparation rapide n'en supprime jamais).
+Désactiver l'extension (`database/uninstall.php`) retire ses champs de la mise en page de la
+fiche, où qu'ils soient, et le panneau s'il est vide ; les colonnes et leurs données restent
+dans la base (la réparation rapide n'en supprime jamais). Réactivée, elle remet le panneau.
 
 ## Développer
 

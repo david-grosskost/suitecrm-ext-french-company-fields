@@ -1,0 +1,76 @@
+<?php
+
+// Signatures of what the extension uses besides suitecrm-devkit's stub, for
+// PHPStan only (SuiteCRM and suitecrm-core are not installed here): Studio's
+// layout parser (SuiteCRM 8.10.2, public/legacy/modules/ModuleBuilder) and
+// the seed runner of suitecrm-core (database/seeders/src).
+
+namespace {
+    const MB_DETAILVIEW = 'detailview';
+
+    abstract class AbstractMetaDataParser
+    {
+        /** @var array<mixed> */
+        public $_viewdefs;
+
+        abstract public function handleSave(bool $populate = true): void;
+    }
+
+    class GridLayoutMetaDataParser extends AbstractMetaDataParser
+    {
+        public function handleSave(bool $populate = true): void
+        {
+        }
+    }
+
+    class ParserFactory
+    {
+        public static function getParser(string $view, string $moduleName, ?string $packageName = null, ?string $subpanelName = null): AbstractMetaDataParser
+        {
+        }
+    }
+}
+
+namespace SuiteCrmCore\Seed {
+    interface Seeder
+    {
+        public function name(): string;
+
+        /** @return list<string> */
+        public function dependsOn(): array;
+
+        public function run(SeedContext $seed): void;
+    }
+
+    final class SeedContext
+    {
+        public static function id(string $module, string $key): string
+        {
+        }
+
+        /** @param array<string, string|int|null> $fields */
+        public function update(\SugarBean $bean, array $fields): void
+        {
+        }
+    }
+
+    final class Fr
+    {
+        public static function siret(string $key): string
+        {
+        }
+    }
+}
+
+namespace SuiteCrmCore\Seed\Core {
+    final class AccountsSeeder
+    {
+        /** @var array<string, array{string, string, string, string, string, string, int}> */
+        public const ACCOUNTS = [];
+    }
+
+    final class VolumeSeeder
+    {
+        public const MAX = 1500;
+    }
+}

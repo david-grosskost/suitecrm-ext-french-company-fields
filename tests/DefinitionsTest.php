@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SuiteCrmExt\FrenchCompanyFields\Tests;
 
-use App\Extension\FrenchCompanyFields\backend\ViewDefinitions\PanelBuilder;
+use SuiteCrmExt\FrenchCompanyFields\StudioPanel;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
@@ -85,7 +85,7 @@ final class DefinitionsTest extends TestCase
             self::assertNotEmpty($labels[$vname] ?? null, "$name : libellé $vname manquant en $language");
         }
         self::assertNotEmpty(
-            $labels[strtoupper(PanelBuilder::KEY)] ?? null,
+            $labels[StudioPanel::KEY] ?? null,
             "titre du panneau manquant en $language",
         );
     }
