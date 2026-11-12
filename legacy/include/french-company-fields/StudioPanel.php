@@ -18,10 +18,13 @@ final class StudioPanel
     /** Key of the panel, also the key of its title (Accounts language files). */
     public const string KEY = 'LBL_FR_COMPANY_PANEL';
 
-    /** Two fields a row, as in the other panels of the accounts. */
+    /**
+     * Two fields a row, as in the other panels of the accounts. '(filler)':
+     * a blank cell kept as such ('(empty)' would let the field span the row).
+     */
     public const array ROWS = [
         ['fr_siret', 'fr_naf_code'],
-        ['fr_legal_form', self::EMPTY],
+        ['fr_legal_form', self::FILLER],
     ];
 
     /** Its tab, when the layout shows its panels as tabs. */
@@ -115,7 +118,7 @@ final class StudioPanel
     /** @return list<string> The fields of the panel. */
     public static function fields(): array
     {
-        return array_values(array_diff(array_merge(...self::ROWS), [self::EMPTY]));
+        return array_values(array_diff(array_merge(...self::ROWS), [self::EMPTY, self::FILLER]));
     }
 
     /**

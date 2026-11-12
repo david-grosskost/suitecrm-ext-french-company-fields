@@ -30,7 +30,7 @@ final class StudioPanelTest extends TestCase
 
         self::assertNotNull($layout);
         self::assertSame(
-            self::PANELS + [StudioPanel::KEY => [['fr_siret', 'fr_naf_code'], ['fr_legal_form', '(empty)']]],
+            self::PANELS + [StudioPanel::KEY => [['fr_siret', 'fr_naf_code'], ['fr_legal_form', '(filler)']]],
             $layout['panels'],
             'les autres panneaux ne bougent pas',
         );
