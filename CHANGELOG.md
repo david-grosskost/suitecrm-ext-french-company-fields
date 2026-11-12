@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/david-grosskost/suitecrm-ext-french-company-fields/compare/v0.1.1...v0.2.0) (2026-11-12)
+
+
+### Features
+
+* write the panel once in the studio layout, and seed the fields ([#7](https://github.com/david-grosskost/suitecrm-ext-french-company-fields/issues/7)) ([4617e41](https://github.com/david-grosskost/suitecrm-ext-french-company-fields/commit/4617e412fb2435023a7b4dc9147d427047350477))
+
 ## [0.1.1](https://github.com/david-grosskost/suitecrm-ext-french-company-fields/compare/v0.1.0...v0.1.1) (2026-11-12)
 
 
