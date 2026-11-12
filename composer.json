@@ -1,18 +1,18 @@
 {
-    "name": "david-grosskost/suitecrm-ext-exemple",
-    "description": "Extension d'exemple du modèle des extensions SuiteCRM.",
+    "name": "david-grosskost/suitecrm-ext-french-company-fields",
+    "description": "Champs des entreprises françaises sur les comptes SuiteCRM : SIRET, code NAF, forme juridique.",
     "type": "suitecrm-extension",
     "license": "proprietary",
     "require": {
         "php": ">=8.4"
     },
     "require-dev": {
-        "david-grosskost/suitecrm-devkit": "^0.20"
+        "david-grosskost/suitecrm-devkit": "^0.21"
     },
     "autoload-dev": {
-        "classmap": ["legacy/include/"],
         "psr-4": {
-            "SuiteCrmExt\\Exemple\\Tests\\": "tests/"
+            "App\\Extension\\FrenchCompanyFields\\backend\\": "backend/",
+            "SuiteCrmExt\\FrenchCompanyFields\\Tests\\": "tests/"
         }
     },
     "repositories": [

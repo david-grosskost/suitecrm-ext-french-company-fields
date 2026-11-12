@@ -1,19 +1,32 @@
-# Modèle d'extension SuiteCRM
+# Champs des entreprises françaises (`french-company-fields`)
 
-Point de départ de toute extension des projets SuiteCRM : on ne modifie jamais le code de
-SuiteCRM, on lui ajoute des extensions. Ce dépôt contient une extension d'exemple
-(`exemple`) qui passe toutes les vérifications : on la remplace par la sienne.
+Extension SuiteCRM qui ajoute aux **comptes** les informations d'une entreprise française,
+dans un panneau « Entreprise française » de la fiche :
 
-## Créer une extension
+| Champ | Colonne | Contenu |
+|---|---|---|
+| SIRET | `fr_siret` | numéro d'établissement, 14 chiffres (historisé) |
+| Code NAF | `fr_naf_code` | activité principale, ex. `62.01Z` |
+| Forme juridique | `fr_legal_form` | liste : EI, EURL, SARL, SASU, SAS, SA, SNC, SCI, SCOP, Association, Autre |
 
-1. Sur GitHub, **Use this template → Create a new repository**, nommé
-   `suitecrm-ext-<slug>` (ex. `suitecrm-ext-siret-validation`).
-2. Le cloner, puis lancer `make` : le devkit s'installe (Docker suffit, pas besoin de PHP).
-3. Remplacer l'exemple :
-   - `extension.json` : `slug`, nom, description en mots métier, types ;
-   - `composer.json` : `name` en `…/suitecrm-ext-<slug>`, description ;
-   - `legacy/include/exemple/`, `tests/ExempleTest.php` : son code et ses tests.
-4. Vérifier, comme le fera la CI :
+Libellés en français et en anglais. Le contrôle du SIRET (clé de Luhn) n'est pas ici : c'est
+l'extension `siret-validation`, qui dépend de celle-ci.
+
+## Comment c'est fait
+
+- **Les champs** (`legacy/Extension/modules/Accounts/Ext/Vardefs/`) : trois colonnes de la
+  table `accounts`, préfixées `fr_` pour ne gêner ni SuiteCRM ni un champ fait dans le Studio
+  (`_c`), créées par la réparation rapide qui suit l'activation. Un index sur le SIRET.
+- **La liste des formes juridiques** (`legacy/Extension/application/Ext/Language/`) : les clés
+  sont enregistrées en base, ne jamais en renommer une, en ajouter une autre.
+- **Le panneau de la fiche** (`backend/ViewDefinitions/`) : ajouté quand SuiteCRM 8 construit la
+  vue, pas écrit dans ses fichiers de mise en page. La mise en page faite dans le Studio reste
+  intacte, et le panneau disparaît avec l'extension.
+
+Désactiver l'extension retire les champs et le panneau de l'interface ; les colonnes et leurs
+données restent dans la base (la réparation rapide n'en supprime jamais).
+
+## Développer
 
 ```bash
 make extension@validate   # format : manifeste, composer.json, place des fichiers
@@ -22,35 +35,5 @@ make quality@stan         # analyse statique (PHPStan, niveau max)
 make test@unit            # tests unitaires (PHPUnit)
 ```
 
-5. Pousser une branche et ouvrir une pull request : un développeur la relit avant le merge.
-
-## Où mettre quoi
-
-| Dossier | Copié dans SuiteCRM | Pour |
-|---|---|---|
-| `legacy/Extension/…` | `public/legacy/custom/Extension/…` | hooks, champs, libellés : SuiteCRM les assemble au Quick Repair. Le slug figure dans chaque nom de fichier (ex. `legacy/Extension/application/Ext/LogicHooks/<slug>.php`) |
-| `legacy/include/<slug>/` | `public/legacy/custom/include/<slug>/` | les classes PHP appelées par les hooks : la logique, testée sans SuiteCRM |
-| `backend/`, `config/` | `extensions/<slug>/` | la couche SuiteCRM 8 (services Symfony), chargée automatiquement |
-| `database/seeders/` | — | ses données de démo, chargées par le seed des démos |
-| `tests/` | — | ses tests unitaires |
-
-`make extension@validate` refuse un fichier rangé ailleurs : deux extensions ne peuvent
-ainsi jamais écrire le même fichier.
-
-## Le manifeste `extension.json`
-
-| Clé | Contenu |
-|---|---|
-| `slug` | identifiant, en minuscules et tirets : le préfixe de tous ses fichiers |
-| `name` | nom, en français |
-| `description` | ce que fait l'extension, en mots métier (20 caractères au moins) |
-| `types` | parmi `logic-hook`, `fields`, `ui`, `scheduler`, `lang` |
-| `suitecrm` | versions de SuiteCRM compatibles, ex. `>=8.10 <9` |
-
-## Ce qui vient du devkit
-
-Les commandes `make`, la CI, les hooks Git, les règles de qualité et la signature des
-classes SuiteCRM pour PHPStan viennent de
-[suitecrm-devkit](https://github.com/david-grosskost/suitecrm-devkit), à la version de
-`composer.json`. Corriger une règle se fait dans le devkit, puis on monte sa version ici
-(`composer.json` et `.github/workflows/*.yml`, ensemble).
+Les commandes, la CI et les règles viennent de
+[suitecrm-devkit](https://github.com/david-grosskost/suitecrm-devkit).

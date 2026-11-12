@@ -1,7 +1,7 @@
 {
-    "slug": "exemple",
-    "name": "Exemple",
-    "description": "Extension d'exemple du modèle : à remplacer par ce que fait votre extension, en mots métier.",
-    "types": ["logic-hook"],
+    "slug": "french-company-fields",
+    "name": "Champs des entreprises françaises",
+    "description": "Ajoute aux comptes les informations d'une entreprise française : numéro SIRET, code NAF (activité) et forme juridique (SARL, SAS, EI…), avec leurs libellés en français.",
+    "types": ["fields", "lang"],
     "suitecrm": ">=8.10 <9"
 }
