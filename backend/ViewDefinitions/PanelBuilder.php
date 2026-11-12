@@ -19,6 +19,9 @@ final class PanelBuilder
         ['fr_legal_form', ''],
     ];
 
+    /** Its tab, when the view shows its panels as tabs. */
+    public const array TAB = ['newTab' => true, 'panelDefault' => 'expanded'];
+
     /**
      * The record view with the panel at the end; null when nothing is to be
      * changed: no panel to add to, panel already there, or fields missing from
@@ -66,6 +69,15 @@ final class PanelBuilder
 
         $panels[] = ['key' => self::KEY, 'rows' => $rows];
         $recordView['panels'] = $panels;
+
+        // With tabs, the front end only shows the panels listed in tabDefs
+        // (uppercase keys): the panel gets its own tab. Without tabs (no
+        // tabDefs), every panel shows: adding one would hide the others.
+        $templateMeta = $recordView['templateMeta'] ?? null;
+        if (is_array($templateMeta) && is_array($templateMeta['tabDefs'] ?? null) && $templateMeta['tabDefs'] !== []) {
+            $templateMeta['tabDefs'][strtoupper(self::KEY)] = self::TAB;
+            $recordView['templateMeta'] = $templateMeta;
+        }
 
         return $recordView;
     }

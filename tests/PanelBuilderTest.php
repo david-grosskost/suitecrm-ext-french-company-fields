@@ -82,4 +82,26 @@ final class PanelBuilderTest extends TestCase
         self::assertNull(PanelBuilder::addTo([], self::VARDEFS));
         self::assertNull(PanelBuilder::addTo(['panels' => []], self::VARDEFS));
     }
+
+    public function testThePanelGetsItsTabWhenTheViewUsesTabs(): void
+    {
+        $tabDefs = ['LBL_ACCOUNT_INFORMATION' => PanelBuilder::TAB];
+        $view = PanelBuilder::addTo(self::RECORD_VIEW + ['templateMeta' => ['useTabs' => true, 'tabDefs' => $tabDefs]], self::VARDEFS);
+
+        self::assertIsArray($view);
+        self::assertIsArray($view['templateMeta']);
+        self::assertSame(
+            $tabDefs + ['LBL_FR_COMPANY_PANEL' => PanelBuilder::TAB],
+            $view['templateMeta']['tabDefs'],
+            'onglet ajouté à la fin, les autres ne bougent pas',
+        );
+    }
+
+    public function testNoTabIsAddedWhenTheViewHasNoTabs(): void
+    {
+        $view = PanelBuilder::addTo(self::RECORD_VIEW + ['templateMeta' => ['maxColumns' => '2']], self::VARDEFS);
+
+        self::assertIsArray($view);
+        self::assertSame(['maxColumns' => '2'], $view['templateMeta'], 'sans onglets, tous les panneaux s\'affichent');
+    }
 }
