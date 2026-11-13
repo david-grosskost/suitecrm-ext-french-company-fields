@@ -96,10 +96,15 @@ final class CompanyProfile
             'fr_legal_form' => self::legalForm($account['name'], $account['employees']),
         ];
 
-        return array_filter(
-            $values,
-            static fn(string $field): bool => trim($account[$field]) === '',
-            ARRAY_FILTER_USE_KEY,
-        );
+        // A loop, not array_filter: the scanner of the Module Loader refuses
+        // callbacks (array_filter, array_map…), for every package.
+        $missing = [];
+        foreach ($values as $field => $value) {
+            if (trim($account[$field]) === '') {
+                $missing[$field] = $value;
+            }
+        }
+
+        return $missing;
     }
 }
