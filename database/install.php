@@ -8,6 +8,9 @@
 // From then on the panel belongs to Studio: moved, renamed or deleted there,
 // it is never put back.
 
+// Its message is returned, not printed (echo is refused by the scanner of
+// the Module Loader): the caller shows it.
+
 declare(strict_types=1);
 
 use SuiteCrmExt\FrenchCompanyFields\StudioPanel;
@@ -29,9 +32,7 @@ $layout = StudioPanel::add(
     is_array($templateMeta['tabDefs'] ?? null) ? $templateMeta['tabDefs'] : [],
 );
 if ($layout === null) {
-    echo "  french-company-fields : panneau déjà dans la mise en page, rien à faire.\n";
-
-    return;
+    return 'french-company-fields : panneau déjà dans la mise en page, rien à faire.';
 }
 
 $viewdefs['panels'] = $layout['panels'];
@@ -40,4 +41,4 @@ $viewdefs['templateMeta'] = $templateMeta;
 $parser->_viewdefs = $viewdefs;
 // false: the layout as set here, not read from a Studio form.
 $parser->handleSave(false);
-echo "  french-company-fields : panneau « Entreprise française » ajouté à la fiche des comptes (Studio).\n";
+return 'french-company-fields : panneau « Entreprise française » ajouté à la fiche des comptes (Studio).';

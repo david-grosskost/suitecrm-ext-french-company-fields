@@ -7,6 +7,9 @@
 // taken out (suitecrm-core, scripts/extension-script.php), in SuiteCRM, as the
 // administrator. The values stay in the database (columns fr_*).
 
+// Its message is returned, not printed (echo is refused by the scanner of
+// the Module Loader): the caller shows it.
+
 declare(strict_types=1);
 
 use SuiteCrmExt\FrenchCompanyFields\StudioPanel;
@@ -27,9 +30,7 @@ $layout = StudioPanel::remove(
     is_array($templateMeta['tabDefs'] ?? null) ? $templateMeta['tabDefs'] : [],
 );
 if ($layout === null) {
-    echo "  french-company-fields : aucun de ses champs dans la mise en page, rien à retirer.\n";
-
-    return;
+    return 'french-company-fields : aucun de ses champs dans la mise en page, rien à retirer.';
 }
 
 $viewdefs['panels'] = $layout['panels'];
@@ -37,4 +38,4 @@ $templateMeta['tabDefs'] = $layout['tabDefs'];
 $viewdefs['templateMeta'] = $templateMeta;
 $parser->_viewdefs = $viewdefs;
 $parser->handleSave(false);
-echo "  french-company-fields : champs retirés de la fiche des comptes (Studio).\n";
+return 'french-company-fields : champs retirés de la fiche des comptes (Studio).';
