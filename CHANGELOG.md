@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/david-grosskost/suitecrm-ext-french-company-fields/compare/v0.2.0...v0.2.1) (2026-11-13)
+
+
+### Bug Fixes
+
+* pass the Module Loader scanner ([#11](https://github.com/david-grosskost/suitecrm-ext-french-company-fields/issues/11)) ([d32ed1f](https://github.com/david-grosskost/suitecrm-ext-french-company-fields/commit/d32ed1fb9485907e2a04e0250943bfc8ad371e61))
+
 ## [0.2.0](https://github.com/david-grosskost/suitecrm-ext-french-company-fields/compare/v0.1.1...v0.2.0) (2026-11-12)
 
 
