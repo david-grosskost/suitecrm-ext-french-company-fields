@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.2](https://github.com/david-grosskost/suitecrm-ext-french-company-fields/compare/v0.2.1...v0.2.2) (2026-11-14)
+
+
+### Bug Fixes
+
+* take out the panel left empty by a failed install ([#13](https://github.com/david-grosskost/suitecrm-ext-french-company-fields/issues/13)) ([c75b89d](https://github.com/david-grosskost/suitecrm-ext-french-company-fields/commit/c75b89d57c59447dfb54a43d41ae4f8717f2ad12))
+
 ## [0.2.1](https://github.com/david-grosskost/suitecrm-ext-french-company-fields/compare/v0.2.0...v0.2.1) (2026-11-13)
 
 
