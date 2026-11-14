@@ -63,7 +63,9 @@ final class StudioPanel
      * The layout without the fields of the extension, wherever they are
      * (fields that SuiteCRM will no longer know): each one becomes a blank
      * cell, a row left blank goes, and so does a panel left without rows,
-     * with its tab. Null when none of them is in the layout.
+     * with its tab. The panel of the extension goes too when it holds no
+     * field at all (a failed install can leave it empty). Null when there is
+     * nothing to take out.
      *
      * @param array<array-key, mixed> $panels
      * @param array<array-key, mixed> $tabDefs
@@ -73,7 +75,7 @@ final class StudioPanel
     public static function remove(array $panels, array $tabDefs): ?array
     {
         if (self::fieldsIn($panels) === []) {
-            return null;
+            return self::removeEmptyPanel($panels, $tabDefs);
         }
 
         $fields = self::fields();
@@ -113,6 +115,47 @@ final class StudioPanel
         }
 
         return ['panels' => $panels, 'tabDefs' => $tabDefs];
+    }
+
+    /**
+     * The layout without the panel of the extension when it is there with no
+     * field in it, as Studio may store its key in lower case; null otherwise.
+     * Only this panel: the empty panels of the instance stay as they are.
+     *
+     * @param array<array-key, mixed> $panels
+     * @param array<array-key, mixed> $tabDefs
+     *
+     * @return array{panels: array<array-key, mixed>, tabDefs: array<array-key, mixed>}|null
+     */
+    private static function removeEmptyPanel(array $panels, array $tabDefs): ?array
+    {
+        $removed = false;
+        foreach ([self::KEY, strtolower(self::KEY)] as $key) {
+            if (array_key_exists($key, $panels) && self::isBlank($panels[$key])) {
+                unset($panels[$key]);
+                $removed = true;
+            }
+        }
+        if (!$removed) {
+            return null;
+        }
+        unset($tabDefs[self::KEY], $tabDefs[strtolower(self::KEY)]);
+
+        return ['panels' => $panels, 'tabDefs' => $tabDefs];
+    }
+
+    /** Whether a panel shows nothing: no row, or only blank cells. */
+    private static function isBlank(mixed $rows): bool
+    {
+        foreach (is_array($rows) ? $rows : [] as $row) {
+            foreach (is_array($row) ? $row : [$row] as $cell) {
+                if (!in_array($cell, [self::EMPTY, self::FILLER, ''], true)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     /** @return list<string> The fields of the panel. */

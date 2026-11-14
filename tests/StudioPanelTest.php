@@ -97,4 +97,29 @@ final class StudioPanelTest extends TestCase
     {
         self::assertNull(StudioPanel::remove(self::PANELS, self::TAB_DEFS));
     }
+
+    public function testThePanelLeftEmptyByAFailedInstallIsRemovedWithItsTab(): void
+    {
+        $panels = self::PANELS + ['lbl_fr_company_panel' => [[StudioPanel::EMPTY, StudioPanel::FILLER]]];
+        $tabDefs = self::TAB_DEFS + [StudioPanel::KEY => StudioPanel::TAB];
+
+        self::assertSame(
+            ['panels' => self::PANELS, 'tabDefs' => self::TAB_DEFS],
+            StudioPanel::remove($panels, $tabDefs),
+        );
+    }
+
+    public function testAnEmptyPanelOfTheInstanceStays(): void
+    {
+        $panels = self::PANELS + ['LBL_PANEL_EMPTY' => [[StudioPanel::EMPTY, StudioPanel::EMPTY]]];
+
+        self::assertNull(StudioPanel::remove($panels, self::TAB_DEFS));
+    }
+
+    public function testThePanelStaysWhenStudioPutAnotherFieldInIt(): void
+    {
+        $panels = self::PANELS + [StudioPanel::KEY => [['description', StudioPanel::EMPTY]]];
+
+        self::assertNull(StudioPanel::remove($panels, self::TAB_DEFS));
+    }
 }
