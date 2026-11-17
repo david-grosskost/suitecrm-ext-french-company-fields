@@ -1,8 +1,8 @@
 # Extension SuiteCRM
 
 Ce dépôt est **une extension SuiteCRM 8** des projets de David Grosskost : un paquet Composer
-(`suitecrm-extension`) que l'image de suitecrm-core (ou d'un projet client) installe, puis
-que chaque instance active ou non (variable `EXTENSIONS`).
+(`suitecrm-extension`) que l'image de suitecrm-core (ou d'un projet client) met à
+disposition, et que chaque instance installe ou non depuis le Chargeur de module.
 
 ## Avec qui tu travailles
 
@@ -35,8 +35,8 @@ n'est pas installé, demande à la personne de l'installer (Claude Code :
 | `legacy/Extension/…` | `public/legacy/custom/Extension/…` | déclarations (hooks, champs, libellés), assemblées au Quick Repair ; le slug dans chaque nom de fichier |
 | `legacy/include/<slug>/` | `public/legacy/custom/include/<slug>/` | les classes PHP : toute la logique, testée sans SuiteCRM |
 | `backend/`, `config/` | `extensions/<Slug>/` (slug en PascalCase) | la couche SuiteCRM 8 (Symfony) : classes `App\Extension\<Slug>\backend\…`, services dans `config/services/<slug>.yaml` |
-| `database/install.php`, `database/uninstall.php` | — (lancés par le core) | ce qui se fait une fois dans SuiteCRM à la première activation (ex. un panneau dans une mise en page de Studio), et se défait à la désactivation |
-| `database/seeders/<slug>/` | — | données de démo (`make db@seed` du core, extension active) |
+| `database/install.php`, `database/uninstall.php` | — (lancés par le paquet) | ce qui se fait une fois dans SuiteCRM à l'installation (ex. un panneau dans une mise en page de Studio), et se défait à la désinstallation |
+| `database/seeders/<slug>/` | — | données de démo (`make db@seed` du core, extension installée) |
 | `tests/` | — | tests unitaires (PHPUnit) |
 
 ## Commandes (Docker suffit, pas besoin de PHP)
