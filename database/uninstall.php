@@ -3,9 +3,9 @@
 // Uninstall script of french-company-fields: takes its fields out of the
 // Studio layout of the record view of the accounts, wherever they were put, so
 // that the layout names no field SuiteCRM no longer knows; the panel goes with
-// them once empty (alone, when a failed install left it empty). Run when the extension is turned off, before its files are
-// taken out (suitecrm-core, scripts/extension-script.php), in SuiteCRM, as the
-// administrator. The values stay in the database (columns fr_*).
+// them once empty (alone, when a failed install left it empty). Run when the
+// extension is uninstalled, before its files are taken out (pre_uninstall of
+// the Module Loader package), in SuiteCRM, as the administrator. The values stay in the database (columns fr_*).
 
 // Its message is returned, not printed (echo is refused by the scanner of
 // the Module Loader): the caller shows it.
