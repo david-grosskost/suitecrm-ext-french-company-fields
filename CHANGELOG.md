@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.3](https://github.com/david-grosskost/suitecrm-ext-french-company-fields/compare/v0.2.2...v0.2.3) (2026-11-25)
+
+
+### Bug Fixes
+
+* load the extension classes where the Module Loader put them ([#18](https://github.com/david-grosskost/suitecrm-ext-french-company-fields/issues/18)) ([024363e](https://github.com/david-grosskost/suitecrm-ext-french-company-fields/commit/024363ece42f65fc719f83f990f58869d2ea9133))
+
 ## [0.2.2](https://github.com/david-grosskost/suitecrm-ext-french-company-fields/compare/v0.2.1...v0.2.2) (2026-11-14)
 
 
