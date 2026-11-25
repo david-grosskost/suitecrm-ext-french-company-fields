@@ -1,7 +1,7 @@
 <?php
 
 // Seeders of french-company-fields, found by the seed runner of suitecrm-core
-// when the extension is active (make db@seed), after those of the core.
+// when the extension is installed (make db@seed), after those of the core.
 
 declare(strict_types=1);
 

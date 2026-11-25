@@ -2,9 +2,10 @@
 
 // Install script of french-company-fields: puts the panel « Entreprise
 // française » (SIRET, NAF code, legal form) at the end of the record view of
-// the accounts, in its Studio layout. Run once, at the first activation, after
-// Quick Repair has created the fields (suitecrm-core,
-// scripts/extension-script.php), in SuiteCRM, as the administrator.
+// the accounts, in its Studio layout. Run once, at the first installation,
+// after Quick Repair has created the fields (post_install of the Module
+// Loader package, see suitecrm-devkit, make package@build), in SuiteCRM, as
+// the administrator.
 // From then on the panel belongs to Studio: moved, renamed or deleted there,
 // it is never put back.
 
